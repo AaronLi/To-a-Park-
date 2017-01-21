@@ -1,6 +1,6 @@
 def getData(f):
     "f is the opened file"
-    getData = []
+    getdata = []
     #ali is the entire file
     ali = f.read().decode().split("<entry>")
 
@@ -18,5 +18,5 @@ def getData(f):
                 data2 = data2 + k.split("<")
             if data2[-1][3:] != "__id":
                  linedata.append(data2[-1][3:]+" " + data2[-2].strip())
-        getData.append(linedata)
-    return getData
+        getdata.append(linedata)
+    return getdata
