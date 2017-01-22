@@ -18,5 +18,8 @@ def randTrip():
 @ask.intent('RandomTripDist', convert={'MaxDist':int})
 def randTripDist(maxDist):
     return statement(str(maxDist))
+@ask.intent('RandomCalc')
+def randCalc():
+    return statement("Albert and Aaron don't understand the greatest of my waifus")
 if __name__ == '__main__':
     app.run()
