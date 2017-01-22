@@ -21,6 +21,6 @@ def randTripDist(maxDist):
     return statement(str(maxDist))
 @ask.intent('RandomCalc')
 def randCalc():
-    return statement("Albert and Aaron don't understand the greatest of my waifus")
+    return question("Why do you hate Yoyo?")
 if __name__ == '__main__':
     app.run()
