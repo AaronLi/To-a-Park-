@@ -1,4 +1,4 @@
-##Take me to a Park
+##To a Park!
 ## Inspiration
 One of our team members was extremely enthusiastic with using Amazon Alexa, so we put our pea sized brains together and decided to create an Alexa skill that will allow bored couch potatoes to find fun and new places to explore around Michigan by using data provided by the Michigan Open Dataset
 ## What it does
@@ -20,7 +20,7 @@ Being the inventive, sly, and clever people we are, we swiftly fired up ngrok an
 - How to use NGROK
 - How to access Michigan Open Data
 - How to use Amazon Alexa and the Amazon Echo
-## What's next for Take Me To a Park
+## What's next for To a Park!
 - Using other databases in the Michigan Open Data Library
 - Expanding dataset to outside the Michigan area
 - Allowing even more streamlined interfacing with Alexa
