@@ -18,7 +18,7 @@ fractions = {"a half":0.5,"a quarter":0.25,"three quarters":0.75,"a third":0.333
 
 def endresult(fee,dist):
     possibilites = getData(tripInfo)
-    return (" and ").join(possiblities[5])
+    return (" and ").join(possiblities['name'])
 
 @ask.intent('RandomTrip')
 def randTrip():#initializing everything
