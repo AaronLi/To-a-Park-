@@ -1,22 +1,24 @@
 from flask import Flask
-from flask_ask import Ask, statement
+from flask_ask import Ask, statement, question
 from getData import getData
 from urllib.request import urlopen
-url = urlopen("https://data.michigan.gov/OData.svc/aiht-57sm")
-tripInfo = getData(url)
+import random
+#url = urlopen("https://data.michigan.gov/OData.svc/aiht-57sm")
+#tripInfo = getData(url)
 app = Flask(__name__)
 ask = Ask(app, '/')
 
-@ask.intent('HelloIntent')
-def hello():
+#@ask.intent('HelloIntent')
+#def hello():
     #speech_text = "Hello %s" % firstname
     #return statement(speech_text).simple_card('Hello', speech_text)
-    return statement("Minya so short")
+ #     return statement("Minya so short")
 @ask.intent('RandomTrip')
 def randTrip():
-    return statement("Trip placeholder")
-@ask.intent('RandomTripDist', convert={'MaxDist':int})
-def randTripDist(maxDist):
-    return statement(str(maxDist))
+    return statement("")
+@ask.intent('RandomTripDist', convert ={'MaxDist':float})
+def randTripDist(MaxDist,Units):
+    return statement(str(MaxDist)+" "+str(Units))
+#@ask.intent('
 if __name__ == '__main__':
     app.run()
