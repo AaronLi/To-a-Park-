@@ -61,10 +61,11 @@ def randTripbool(Decision):
                 print("New false word:",Decision)
             return statement("Aww, well, we can always have a great trip to a park next time!!")
     if session.attributes['de'] and not session.attributes['fe']:
-        session.attributes['f'] = Decision
-        return question("What's the furthest you'd like to go?")
+        session.attributes['f'] = Decision in yesses
+        session.attributes['fe'] = Decision in yesses
+        return statement("I've picked [random park], it's [distKilometers] and [does/does not] require a fee")
 #walking distance
-    session.attributes['de'] = Decision
+    session.attributes['de'] = Decision in yesses
     session.attributes['d'] = 2000
     return statement(endresult(fee,dist))
 
@@ -174,8 +175,9 @@ def randTripFee(Fee):
         session.attributes['d'] = 9999999
     if 'f' not in session.attributes:
         session.attributes['f'] = None
-
+    print(session.attributes)
     session.attributes['fe'] = True
+    print(session.attrivutes)
     session.attributes['f'] = checkVal
     if session.attributes['de']:
         return statement(endresult(session.attributes['f'],session.attributes['d']))
