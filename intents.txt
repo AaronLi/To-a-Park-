@@ -18,7 +18,7 @@
       "intent": "RandomTripDist",
       "slots":[
                 {
-                  "name":"MaxDist",
+                  "name":"MaxDistInt",
                   "type":"AMAZON.NUMBER"
                 },
                 {
