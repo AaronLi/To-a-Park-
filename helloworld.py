@@ -2,6 +2,7 @@ from flask import Flask
 from flask_ask import Ask, statement
 from getData import getData
 from urllib.request import urlopen
+#import getData
 url = urlopen("https://data.michigan.gov/OData.svc/aiht-57sm")
 tripInfo = getData(url)
 app = Flask(__name__)
