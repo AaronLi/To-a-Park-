@@ -1,0 +1,39 @@
+RandomTrip send me on a trip
+RandomTrip send me on a random trip
+RandomTrip take me on an adventure
+RandomTrip lets go somewhere
+RandomTrip allons y
+
+RandomTripWalking send me on a trip within walking distance
+RandomTripWalking I want to walk somewhere
+
+BoolIntent {Decision}
+
+RandomTripDist less than {MaxDist} {Units} away
+RandomTripDist closer than {MaxDist} {Units}
+RandomTripDist {MaxDist} {Units} away
+RandomTripDist somewhere closer than {MaxDist} {Units}
+RandomTripDist somewhere less than {MaxDist} {Units} away
+RandomTripDist within {MaxDist} {Units}
+RandomTripDist {MaxDist} {Units}
+
+RandomTripDistFloat somewhere less than {MaxDistInt} point {MaxDistDec} {Units} away
+RandomTripDistFloat somewhere closer than {MaxDistInt} point {MaxDistDec} {Units}
+RandomTripDistFloat somewhere {MaxDistInt} point {MaxDistDec} {Units} away
+RandomTripDistFloat somewhere within {MaxDistInt} point {MaxDistDec} {Units}
+
+RandomTripDistFraction somewhere less than {MaxDistInt} and {MaxDistFraction} {Units} away
+RandomTripDistFraction somewhere closer than {MaxDistInt} and {MaxDistFraction} {Units}
+RandomTripDistFraction somewhere {MaxDistInt} and {MaxDistFraction} {Units} away
+RandomTripDistFraction somewhere {MaxDistInt} and {MaxDistFraction} {Units}
+RandomTripDistFraction somewhere within {MaxDistInt} and {MaxDistFraction} {Units} from me
+RandomTripDistFraction send me on a trip somewhere closer than {MaxDistInt} and {MaxDistFraction} {Units}
+RandomTripDistFraction send me on a trip somewhere less than {MaxDistInt} and {MaxDistFraction} {Units} away
+RandomTripDistFraction send me on a trip within {MaxDistInt} and {MaxDistFraction} {Units} from me
+RandomTripDistFraction send me on a trip {MaxDistInt} and {MaxDistFraction} {Units} away
+RandomTripDistFraction send me on a trip {MaxDistInt} and {MaxDistFraction} {Units}
+RandomTripDistFraction send me on an adventure somewhere closer than {MaxDistInt} and {MaxDistFraction} {Units}
+RandomTripDistFraction send me on an adventure somewhere {MaxDistInt} and {MaxDistFraction} {Units}
+RandomTripDistFraction send me on an adventure somewhere {MaxDistInt} and {MaxDistFraction} {Units} away
+RandomTripDistFraction send me on an adventure somewhere less than {MaxDistInt} and {MaxDistFraction} {Units} away
+RandomTripDistFraction send me on an adventure somewhere within {MaxDistInt} and {MaxDistFraction} {Units}

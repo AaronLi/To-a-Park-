@@ -1,0 +1,78 @@
+{
+
+    "intents":
+    [
+    {
+        "intent": "RandomTrip"
+    },
+    {
+      "intent": "RandomTripWalking"
+    },
+    {
+      "intent": "BoolIntent",
+      "slots":[
+        {
+          "name":"Decision",
+          "type":"Boolean"
+        }
+      ]
+    },
+    {
+      "intent": "RandomTripFee",
+      "slots":[
+                  {
+                    "name":"Decision",
+                    "type":"Boolean"
+                  }
+              ]
+    }
+    {
+      "intent": "RandomTripDist",
+      "slots":[
+                {
+                  "name":"MaxDist",
+                  "type":"AMAZON.NUMBER"
+                },
+                {
+                  "name":"Units",
+                  "type":"Unit"
+                }
+              ]
+    },
+    {
+      "intent":"RandomTripDistFloat",
+      "slots":[
+                {
+                  "name":"MaxDistInt",
+                  "type":"AMAZON.NUMBER"
+                },
+                {
+                  "name":"MaxDistDec",
+                  "type":"AMAZON.NUMBER"
+                },
+                {
+                  "name":"Units",
+                  "type":"Unit"
+                }
+              ]
+    },
+      {
+        "intent":"RandomTripDistFraction",
+        "slots":[
+                  {
+                    "name":"MaxDistInt",
+                    "type":"AMAZON.NUMBER"
+                  },
+                  {
+                    "name":"MaxDistFraction",
+                    "type":"Fraction"
+                  },
+                  {
+                    "name":"Units",
+                    "type":"Unit"
+                  }
+                ]
+      }
+      ]
+
+}
