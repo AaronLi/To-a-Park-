@@ -1,10 +1,10 @@
 from flask import Flask
 from flask_ask import Ask, statement, question
-from getData import getData
+from getData import *
 from urllib.request import urlopen
 import random
-#url = urlopen("https://data.michigan.gov/OData.svc/aiht-57sm")
-#tripInfo = getData(url)
+url = urlopen("https://data.michigan.gov/OData.svc/aiht-57sm")
+tripInfo = getData(url)
 app = Flask(__name__)
 ask = Ask(app, '/')
 
