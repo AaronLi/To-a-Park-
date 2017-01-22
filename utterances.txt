@@ -3,6 +3,7 @@ RandomTrip send me on a random trip
 RandomTrip take me on an adventure
 RandomTrip lets go somewhere
 RandomTrip allons y
+RandomTrip please
 RandomTrip bring me on a trip
 
 BoolIntent {Decision}
