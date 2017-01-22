@@ -23,16 +23,26 @@ def getData(f):
                  linedata[data2[-1][3:]] = data2[-2].strip()
         getdata.append(linedata)
     return getdata
-def getPossiblePlaces(data,maxFee,maxDist):
+def getPossiblePlaces(data,fee,maxDist):
     "All possible places within the boundary"
     possible = []
     for place in data:
         if 'id' not in place:
             continue
         
-        if place['entrancefee'] <= maxFee and haversine(getMyLoc(),(float(place['longitude']),float(place['latitude']))) <= maxDist:
-            possible.append(place['name'] + ", " + place['county'] + " county")
+        if (float(place['entrancefee']) <= 0 or fee) and haversine(getMyLoc(),(float(place['longitude']),float(place['latitude']))) <= maxDist:
+            possible.append(place)
     return possible
+def getClosestPlace(mydicts,ideald):
+    closest = 100000000000
+    best = {}
+    for place in mydicts:
+        if 'id' not in place:
+            continue
+        if abs(haversine(getMyLoc(),(float(place['longitude']),float(place['latitude'])))-ideald) < closest:
+            best = place
+            closest = abs(haversine(getMyLoc(),(float(place['longitude']),float(place['latitude'])))-ideald)
+    return best
 def getMyLoc():
     "returns user's current location in (longitude, latitude)"
     f = urlopen('http://freegeoip.net/json/')

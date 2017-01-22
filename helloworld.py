@@ -17,7 +17,7 @@ nos = set(['no','nah','false','of course not','no thank you','negative'])
 fractions = {"a half":0.5,"a quarter":0.25,"three quarters":0.75,"a third":0.3333333,"two thirds":0.6666666}
 
 def endresult(fee,dist):
-    possibilites = getData(tripInfo)
+    #possibilites = getData(tripInfo)
     return (" and ").join(possiblities['name'])
 
 @ask.intent('RandomTrip')
@@ -28,6 +28,7 @@ def randTrip():#initializing everything
     session.attributes['fe'] = False
     session.attributes['d'] = 9999999
     session.attributes['f'] = None
+    session.attributes['units'] = 'miles'
     return question(welcome)
 
 ##@ask.intent('RandomTripWalking')
@@ -53,17 +54,24 @@ def randTripbool(Decision):
         session.attributes['d'] = 9999999
     if 'f' not in session.attributes:
         session.attributes['f'] = None
+    if 'units' not in session.attributes:
+        session.attributes['units'] = "guilty crown"
     if not session.attributes['de'] and not session.attributes['fe']:
         if Decision in yesses:
             return question("Great!, How far are you willing to travel?")
         else:
             if Decision not in nos:
                 print("New false word:",Decision)
-            return statement("Aww, well, we can always have a great trip to a park next time!!")
+            return statement("Maybe next time!")
     if session.attributes['de'] and not session.attributes['fe']:
         session.attributes['f'] = Decision in yesses
         session.attributes['fe'] = Decision in yesses
-        return statement("I've picked [random park], it's [distKilometers] and [does/does not] require a fee")
+        places = getPossiblePlaces(tripInfo,session.attributes['f'],session.attributes['d']+10000)
+        myLoc = getMyLoc()
+        picked = getClosestPlace(places,session.attributes['d'])#dictionary of the ideal place
+        parkLoc = (float(picked['longitude']),float(picked['latitude']))
+        distanceToPark = haversine(myLoc,parkLoc)
+        return statement("I've picked %s, it's %s.1f %s away and %s require a fee",picked['name'],distanceToPark,session.attributes['units'],"does" if picked['fee']>0 else "doesn't")
 #walking distance
     session.attributes['de'] = Decision in yesses
     session.attributes['d'] = 2000
@@ -83,7 +91,8 @@ def randTripDistFloat(MaxDistInt,MaxDistDec,Units):
         session.attributes['d'] = 9999999
     if 'f' not in session.attributes:
         session.attributes['f'] = None
-    
+    if 'units' not in session.attributes:
+        session.attributes['units'] = Units
     MaxDist = MaxDistInt + MaxDistDec/10.0
     reallength = 0.0 + MaxDist
     if Units.lower() in ["kilometers","miles","yards","feet"]:
@@ -112,6 +121,8 @@ def randTripDistFract(MaxDistInt,MaxDistFraction,Units):
         session.attributes['d'] = 9999999
     if 'f' not in session.attributes:
         session.attributes['f'] = None
+    if 'units' not in session.attributes:
+        session.attributes['units'] = Units
     if MaxDistFraction in fractions:
         realFraction = fractions[MaxDistFraction]
     else:
@@ -146,6 +157,8 @@ def randTripDist(MaxDistInt,Units):
         session.attributes['d'] = 9999999
     if 'f' not in session.attributes:
         session.attributes['f'] = None
+    if 'units' not in session.attributes:
+        session.attributes['units'] = Units
     reallength = 0.0 + MaxDistInt
     MaxDist = MaxDistInt
     if Units.lower() in ["kilometers","miles","yards","feet"]:
@@ -175,9 +188,7 @@ def randTripFee(Fee):
         session.attributes['d'] = 9999999
     if 'f' not in session.attributes:
         session.attributes['f'] = None
-    print(session.attributes)
     session.attributes['fe'] = True
-    print(session.attrivutes)
     session.attributes['f'] = checkVal
     if session.attributes['de']:
         return statement(endresult(session.attributes['f'],session.attributes['d']))
