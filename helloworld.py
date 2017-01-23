@@ -9,11 +9,12 @@ from datetime import datetime
 import random
 url = urlopen("https://data.michigan.gov/OData.svc/aiht-57sm")
 tripInfo = getData(url)
-#tripInfo = open("data.txt")
+#tripInfo = open("data1.txt")
 app = Flask(__name__)
 ask = Ask(app, '/')
 yesses = set(['yes','yeah','true','indeed','sure','ya','yeah sure','of course','affirmative','correct'])
 nos = set(['no','nah','false','of course not','no thank you','negative'])
+possibleUnits = set(['miles','kilometers','yards','meters','feet'])
 fractions = {"a half":0.5,"a quarter":0.25,"three quarters":0.75,"a third":0.3333333,"two thirds":0.6666666}
 
 def endresult(fee,dist):
@@ -66,12 +67,17 @@ def randTripbool(Decision):
     if session.attributes['de'] and not session.attributes['fe']:
         session.attributes['f'] = Decision in yesses
         session.attributes['fe'] = Decision in yesses
-        places = getPossiblePlaces(tripInfo,session.attributes['f'],session.attributes['d']+10000)
+        places = getPossiblePlaces(tripInfo,session.attributes['f'],session.attributes['d']/1600+10000)
         myLoc = getMyLoc()
-        picked = getClosestPlace(places,session.attributes['d'])#dictionary of the ideal place
+        picked = getClosestPlace(places,session.attributes['d']/1600)#dictionary of the ideal place
+        print(session.attributes['d'])
+        if picked == {}:
+            session.attributes['de'] = False
+            session.attributes['fe'] = False
+            return question("My apologies, I did not find the location that satisfies your conditions. Would you like to go somewhere?")
         parkLoc = (float(picked['longitude']),float(picked['latitude']))
-        distanceToPark = haversine(myLoc,parkLoc)
-        return statement("I've picked %s, it's %s.1f %s away and %s require a fee",picked['name'],distanceToPark,session.attributes['units'],"does" if picked['fee']>0 else "doesn't")
+        distanceToPark = unconvert(haversine(myLoc,parkLoc),session.attributes['units'])
+        return statement("I've picked %s, it's %.1f %s away and %s require a fee. It is in %s county"%(picked['name'],distanceToPark,session.attributes['units'],"does" if float(picked['entrancefee'])>0 else "doesn't",picked['county']))
 #walking distance
     session.attributes['de'] = Decision in yesses
     session.attributes['d'] = 2000
@@ -105,11 +111,12 @@ def randTripDistFloat(MaxDistInt,MaxDistDec,Units):
             reallength = MaxDist*0.9144
         if Units.lower() == "feet":
             reallength = MaxDist*0.3048
-    session.attributes['d'] = min(reallength,session.attributes['d'])
+    session.attributes['d'] = reallength
     session.attributes['de'] = True
+    session.attributes['units'] = Units
     if session.attributes['fe']:
         return statement(endresult(session.attributes['f'],session.attrubutes['d']))
-    return question("Will you pay?")
+    return question("You said " + str(MaxDist) + " " + Units + "Will you pay?")
 
 @ask.intent('RandomTripDistFraction', convert ={'MaxDistInt':int})
 def randTripDistFract(MaxDistInt,MaxDistFraction,Units):
@@ -140,11 +147,12 @@ def randTripDistFract(MaxDistInt,MaxDistFraction,Units):
             reallength = MaxDist*0.9144
         if Units.lower() == "feet":
             reallength = MaxDist*0.3048
-    session.attributes['d'] = min(reallength,session.attributes['d'])
+    session.attributes['d'] = reallength
     session.attributes['de'] = True
+    session.attributes['units'] = Units
     if session.attributes['fe']:
         return statement(endresult(session.attributes['f'],session.attrubutes['d']))
-    return question("Will you pay xd?")
+    return question("You said " + str(MaxDist) + " " + Units + "Will you pay?")
 
 
 @ask.intent('RandomTripDist', convert ={'MaxDistInt':int})
@@ -171,11 +179,12 @@ def randTripDist(MaxDistInt,Units):
             reallength = MaxDist*0.9144
         if Units.lower() == "feet":
             reallength = MaxDist*0.3048
-    session.attributes['d'] = min(reallength,session.attributes['d'])
+    session.attributes['d'] = reallength
     session.attributes['de'] = True
+    session.attributes['units'] = Units
     if session.attributes['fe']:
         return statement(endresult(session.attributes['f'],session.attrubutes['d']))
-    return question("Will you pay?")
+    return question("You said " + str(MaxDist) + " " + Units + "Will you pay?")
     
 @ask.intent('RandomTripFee')
 def randTripFee(Fee):
