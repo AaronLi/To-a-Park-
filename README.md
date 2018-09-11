@@ -1,5 +1,5 @@
-#Made for __Spartahack 2017__
-##To a Park!
+# Made for __Spartahack 2017__  
+## To a Park!  
 ## Inspiration
 One of our team members was extremely enthusiastic with using Amazon Alexa, so we put our pea sized brains together and decided to create an Alexa skill that will allow bored couch potatoes to find fun and new places to explore around Michigan by using data provided by the Michigan Open Dataset
 ## What it does
